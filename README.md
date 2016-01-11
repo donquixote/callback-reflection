@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/donquixote/callback-reflection.png)](https://travis-ci.org/donquixote/hasty-php-parser)
+[![Build Status](https://secure.travis-ci.org/donquixote/callback-reflection.png)](https://travis-ci.org/donquixote/containerkit)
 
 # callback-reflection
 
