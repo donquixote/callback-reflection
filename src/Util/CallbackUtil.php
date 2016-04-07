@@ -2,6 +2,7 @@
 
 namespace Donquixote\CallbackReflection\Util;
 
+use Donquixote\CallbackReflection\Callback\CallbackReflection_Closure;
 use Donquixote\CallbackReflection\Callback\CallbackReflection_Function;
 use Donquixote\CallbackReflection\Callback\CallbackReflection_StaticMethod;
 
@@ -29,6 +30,9 @@ final class CallbackUtil extends UtilBase {
       list($classOrObject, $methodName) = explode('::', $callable);
     }
     elseif (is_object($callable)) {
+      if ($callable instanceof \Closure) {
+        return new CallbackReflection_Closure($callable);
+      }
       if (!method_exists($callable, '__invoke')) {
         return NULL;
       }
