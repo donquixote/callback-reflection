@@ -4,6 +4,7 @@ namespace Donquixote\CallbackReflection\Util;
 
 use Donquixote\CallbackReflection\Callback\CallbackReflection_Closure;
 use Donquixote\CallbackReflection\Callback\CallbackReflection_Function;
+use Donquixote\CallbackReflection\Callback\CallbackReflection_ObjectMethod;
 use Donquixote\CallbackReflection\Callback\CallbackReflection_StaticMethod;
 
 final class CallbackUtil extends UtilBase {
@@ -53,11 +54,12 @@ final class CallbackUtil extends UtilBase {
       return NULL;
     }
 
-    if (is_object($classOrObject)) {
-      return NULL;
-    }
-
     $reflMethod = new \ReflectionMethod($classOrObject, $methodName);
+
+    if (is_object($classOrObject)) {
+      /** @var object $classOrObject */
+      return new CallbackReflection_ObjectMethod($classOrObject, $reflMethod);
+    }
 
     return new CallbackReflection_StaticMethod($reflMethod);
   }
