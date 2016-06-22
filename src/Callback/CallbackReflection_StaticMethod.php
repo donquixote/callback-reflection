@@ -2,7 +2,10 @@
 
 namespace Donquixote\CallbackReflection\Callback;
 
-class CallbackReflection_StaticMethod implements CallbackReflectionInterface {
+use Donquixote\CallbackReflection\ArgsPhpToPhp\ArgsPhpToPhpInterface;
+use Donquixote\CallbackReflection\Util\ParamUtil;
+
+class CallbackReflection_StaticMethod implements CallbackReflectionInterface, ArgsPhpToPhpInterface {
 
   /**
    * @var \ReflectionMethod
@@ -41,5 +44,17 @@ class CallbackReflection_StaticMethod implements CallbackReflectionInterface {
    */
   function invokeArgs(array $args) {
     return $this->reflMethod->invokeArgs(NULL, $args);
+  }
+
+  /**
+   * @param string[] $argsPhp
+   *   PHP statements for each parameter.
+   *
+   * @return string
+   *   PHP statement.
+   */
+  public function argsPhpGetPhp(array $argsPhp) {
+    $arglistPhp = ParamUtil::argsPhpGetArglistPhp($argsPhp);
+    return '\\' . $this->reflMethod->getDeclaringClass()->getName() . '::' . $this->reflMethod->getName() . '(' . $arglistPhp . ')';
   }
 }
