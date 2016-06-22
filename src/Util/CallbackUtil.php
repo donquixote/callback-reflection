@@ -43,7 +43,7 @@ final class CallbackUtil extends UtilBase {
     elseif (!is_array($callable)) {
       return NULL;
     }
-    elseif (!isset($callable[0]) || !isset($callable[1])) {
+    elseif (!isset($callable[0], $callable[1])) {
       return NULL;
     }
     else {
