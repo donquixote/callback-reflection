@@ -69,4 +69,15 @@ final class ParamUtil extends UtilBase {
     return FALSE;
   }
 
+  /**
+   * @param string[] $argsPhp
+   *
+   * @return string
+   */
+  public static function argsPhpGetArglistPhp(array $argsPhp) {
+    return array() !== $argsPhp
+      ? "\n  " . implode(",\n  ", $argsPhp)
+      : '';
+  }
+
 }
