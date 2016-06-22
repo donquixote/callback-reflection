@@ -56,10 +56,6 @@ class CallbackReflection_BoundParameters implements CallbackReflectionInterface 
         $arg = $args[$j];
         ++$j;
       }
-      elseif (FALSE && array_key_exists($param->getName(), $args)) {
-        $arg = $args[$param->getName()];
-        ++$j;
-      }
       else {
         throw new \InvalidArgumentException('Insufficient arguments.');
       }
