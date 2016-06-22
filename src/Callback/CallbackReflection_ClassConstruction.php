@@ -2,10 +2,13 @@
 
 namespace Donquixote\CallbackReflection\Callback;
 
+use Donquixote\CallbackReflection\ArgsPhpToPhp\ArgsPhpToPhpInterface;
+use Donquixote\CallbackReflection\Util\ParamUtil;
+
 /**
  * Wraps a class constructor as a factory callback.
  */
-class CallbackReflection_ClassConstruction implements CallbackReflectionInterface {
+class CallbackReflection_ClassConstruction implements CallbackReflectionInterface, ArgsPhpToPhpInterface {
 
   /**
    * @var \ReflectionClass
@@ -57,5 +60,17 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
    */
   function invokeArgs(array $args) {
     return $this->reflClass->newInstanceArgs($args);
+  }
+
+  /**
+   * @param string[] $argsPhp
+   *   PHP statements for each parameter.
+   *
+   * @return string
+   *   PHP statement.
+   */
+  public function argsPhpGetPhp(array $argsPhp) {
+    $arglistPhp = ParamUtil::argsPhpGetArglistPhp($argsPhp);
+    return 'new \\' . $this->reflClass->getName() . '(' . $arglistPhp . ')';
   }
 }
