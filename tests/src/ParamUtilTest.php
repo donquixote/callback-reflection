@@ -58,7 +58,7 @@ class ParamUtilTest extends \PHPUnit_Framework_TestCase {
   foo(
     5,
     'A
-  B');
+B');
 EOT
       ,
       ParamUtil::indent(
@@ -68,6 +68,36 @@ foo(
   5,
   'A
 B');
+EOT
+        ,
+        '  '));
+
+    static::assertSame(
+      <<<'EOT'
+/**
+   * @return string
+   */
+  function foo() {
+    /*
+     * Non-doc comment.
+     */
+    return 'a
+b';
+  }
+EOT
+      ,
+      ParamUtil::indent(
+        <<<'EOT'
+/**
+ * @return string
+ */
+function foo() {
+  /*
+   * Non-doc comment.
+   */
+  return 'a
+b';
+}
 EOT
         ,
         '  '));
@@ -84,7 +114,7 @@ EOT
     4,
     5),
   \'A
-  B\'',
+B\'',
       ParamUtil::argsPhpGetArglistPhp(
         array(
           'new \stdClass',
