@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/donquixote/callback-reflection.png)](https://travis-ci.org/donquixote/containerkit)
+[![Build Status](https://secure.travis-ci.org/donquixote/callback-reflection.png)](https://travis-ci.org/donquixote/callback-reflection)
 
 # callback-reflection
 
