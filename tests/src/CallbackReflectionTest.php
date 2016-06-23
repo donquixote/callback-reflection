@@ -14,7 +14,7 @@ class CallbackReflectionTest extends \PHPUnit_Framework_TestCase {
       $php = <<<'EOT'
 new \Donquixote\CallbackReflection\Tests\CallbackReflectionTest_C(
   'A
-B',
+  B',
   new \stdClass)
 EOT
       ,
@@ -28,9 +28,9 @@ EOT
       <<<'EOT'
 new \Donquixote\CallbackReflection\Tests\CallbackReflectionTest_C(
   new \Donquixote\CallbackReflection\Tests\CallbackReflectionTest_C(
-  'A
-B',
-  new \stdClass))
+    'A
+    B',
+    new \stdClass))
 EOT
       ,
       $callbackReflection->argsPhpGetPhp(
@@ -47,7 +47,7 @@ EOT
       $callbackReflection->invokeArgs(array(4, new \stdClass())));
 
     static::assertEquals(
-      new CallbackReflectionTest_C("A\nB", new \stdClass()),
+      new CallbackReflectionTest_C("A\n  B", new \stdClass()),
       eval('return ' . $php . ';'));
   }
 

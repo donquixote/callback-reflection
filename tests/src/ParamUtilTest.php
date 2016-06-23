@@ -50,6 +50,29 @@ class ParamUtilTest extends \PHPUnit_Framework_TestCase {
         )));
   }
 
+  public function testIndent() {
+
+    static::assertSame(
+      <<<'EOT'
+
+  foo(
+    5,
+    'A
+  B');
+EOT
+      ,
+      ParamUtil::indent(
+        <<<'EOT'
+
+foo(
+  5,
+  'A
+B');
+EOT
+        ,
+        '  '));
+  }
+
   public function testArgsPhpGetArglistPhp() {
 
     static::assertSame(
@@ -58,10 +81,10 @@ class ParamUtilTest extends \PHPUnit_Framework_TestCase {
   5,
   "x",
   foo(
-  4,
-  5),
+    4,
+    5),
   \'A
-B\'',
+  B\'',
       ParamUtil::argsPhpGetArglistPhp(
         array(
           'new \stdClass',

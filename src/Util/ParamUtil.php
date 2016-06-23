@@ -75,9 +75,22 @@ final class ParamUtil extends UtilBase {
    * @return string
    */
   public static function argsPhpGetArglistPhp(array $argsPhp) {
-    return array() !== $argsPhp
-      ? "\n  " . implode(",\n  ", $argsPhp)
-      : '';
+    if (array() === $argsPhp) {
+      return '';
+    }
+    else {
+      return "\n  " . self::indent(implode(",\n", $argsPhp), '  ');
+    }
+  }
+
+  /**
+   * @param string $php
+   * @param string $indentation
+   *
+   * @return mixed
+   */
+  public static function indent($php, $indentation) {
+    return str_replace("\n", "\n" . $indentation, $php);
   }
 
 }
