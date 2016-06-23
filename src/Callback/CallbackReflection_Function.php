@@ -3,7 +3,7 @@
 namespace Donquixote\CallbackReflection\Callback;
 
 use Donquixote\CallbackReflection\ArgsPhpToPhp\ArgsPhpToPhpInterface;
-use Donquixote\CallbackReflection\Util\ParamUtil;
+use Donquixote\CallbackReflection\Util\CodegenUtil;
 
 class CallbackReflection_Function implements CallbackReflectionInterface, ArgsPhpToPhpInterface {
 
@@ -43,7 +43,7 @@ class CallbackReflection_Function implements CallbackReflectionInterface, ArgsPh
    *   PHP statement.
    */
   public function argsPhpGetPhp(array $argsPhp) {
-    $arglistPhp = ParamUtil::argsPhpGetArglistPhp($argsPhp);
+    $arglistPhp = CodegenUtil::argsPhpGetArglistPhp($argsPhp);
     return '\\' . $this->reflFunction->getName() . '(' . $arglistPhp . ')';
   }
 }

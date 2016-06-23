@@ -3,7 +3,7 @@
 namespace Donquixote\CallbackReflection\Callback;
 
 use Donquixote\CallbackReflection\ArgsPhpToPhp\ArgsPhpToPhpInterface;
-use Donquixote\CallbackReflection\Util\ParamUtil;
+use Donquixote\CallbackReflection\Util\CodegenUtil;
 
 /**
  * Wraps a class constructor as a factory callback.
@@ -70,7 +70,7 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
    *   PHP statement.
    */
   public function argsPhpGetPhp(array $argsPhp) {
-    $arglistPhp = ParamUtil::argsPhpGetArglistPhp($argsPhp);
+    $arglistPhp = CodegenUtil::argsPhpGetArglistPhp($argsPhp);
     return 'new \\' . $this->reflClass->getName() . '(' . $arglistPhp . ')';
   }
 }
