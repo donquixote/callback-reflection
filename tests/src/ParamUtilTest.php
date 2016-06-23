@@ -56,12 +56,19 @@ class ParamUtilTest extends \PHPUnit_Framework_TestCase {
       '
   new \stdClass,
   5,
-  "x"',
+  "x",
+  foo(
+  4,
+  5),
+  \'A
+B\'',
       ParamUtil::argsPhpGetArglistPhp(
         array(
           'new \stdClass',
           '5',
           '"x"',
+          "foo(\n  4,\n  5)",
+          var_export("A\nB", true),
         )));
 
     static::assertSame('', ParamUtil::argsPhpGetArglistPhp(array()));
