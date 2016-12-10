@@ -40,7 +40,7 @@ class CallbackReflection_StaticMethod implements CallbackReflectionInterface, Ar
   /**
    * @param mixed[] $args
    *
-   * @return mixed|void
+   * @return mixed|null
    */
   function invokeArgs(array $args) {
     return $this->reflMethod->invokeArgs(NULL, $args);

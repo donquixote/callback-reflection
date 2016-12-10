@@ -31,7 +31,7 @@ class CallbackReflection_Closure implements CallbackReflectionInterface {
   /**
    * @param mixed[] $args
    *
-   * @return mixed|void
+   * @return mixed|null
    */
   function invokeArgs(array $args) {
     return call_user_func_array($this->closure, $args);

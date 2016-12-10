@@ -29,7 +29,7 @@ class CallbackReflection_Function implements CallbackReflectionInterface, ArgsPh
   /**
    * @param mixed[] $args
    *
-   * @return mixed|void
+   * @return mixed|null
    */
   function invokeArgs(array $args) {
     return $this->reflFunction->invokeArgs($args);
