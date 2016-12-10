@@ -89,4 +89,41 @@ B\'',
     static::assertSame('', CodegenUtil::argsPhpGetArglistPhp(array()));
   }
 
+  public function testAutoIndent() {
+
+    $ugly = '
+ class C {
+  
+ /**
+   * @return string
+      */
+function foo() {
+
+/*
+* Non-doc comment.
+*/
+return \'a
+b\';
+}
+}
+';
+    $clean = '
+class C {
+
+  /**
+   * @return string
+   */
+  function foo() {
+
+    /*
+     * Non-doc comment.
+     */
+    return \'a
+b\';
+  }
+}
+';
+    static::assertSame($clean, CodegenUtil::autoIndent($ugly, '  '));
+  }
+
 }
