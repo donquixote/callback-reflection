@@ -2,6 +2,10 @@
 
 namespace Donquixote\CallbackReflection\Util;
 
+/**
+ * @todo This should probably be in a separate library.
+ * But for now it is good enough to have it here.
+ */
 final class CodegenUtil extends UtilBase {
 
   /**
