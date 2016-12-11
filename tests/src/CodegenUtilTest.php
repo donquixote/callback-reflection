@@ -140,4 +140,34 @@ EOT;
     static::assertSame($clean, CodegenUtil::autoIndent($ugly, '  '));
   }
 
+  /**
+   * Override of assertSame() that makes spaces visible in the diff.
+   *
+   * @param mixed $expected
+   * @param mixed $actual
+   * @param string $message
+   */
+  public static function assertSame($expected, $actual, $message = '') {
+
+    if (!is_string($expected) || !is_string($actual)) {
+      parent::assertSame($expected, $actual, $message);
+    }
+
+    // Check if the actual code has a diff.
+    $expected_despaced = str_replace(' ', '', $expected);
+    $actual_despaced = str_replace(' ', '', $actual);
+    if ($expected_despaced !== $actual_despaced) {
+      parent::assertSame($expected, $actual, $message);
+    }
+
+    // Make spaces visible.
+    $expected_processed = str_replace("\n", "\\n\n", $expected);
+    $actual_processed = str_replace("\n", "\\n\n", $actual);
+    if ($expected_processed === $actual_processed) {
+      parent::assertSame($expected, $actual, $message);
+    }
+
+    parent::assertSame($expected_processed, $actual_processed, $message);
+  }
+
 }
