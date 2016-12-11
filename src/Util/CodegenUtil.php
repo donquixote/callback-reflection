@@ -56,12 +56,51 @@ final class CodegenUtil extends UtilBase {
    */
   public static function autoIndent($php, $indent_level, $indent_base = '') {
     $tokens = token_get_all('<?php' . "\n" . $php);
+    $tokens[] = [T_WHITESPACE, "\n"];
     $tokens[] = '#';
+    $tokens = self::prepareTokens($tokens);
 
     $i = 1;
     $out = [''];
     self::doAutoIndent($out, $tokens, $i, $indent_base, $indent_level);
+
+    array_pop($out);
+
     return implode('', $out);
+  }
+
+  /**
+   * @param array $tokens_original
+   *
+   * @return array
+   */
+  private static function prepareTokens(array $tokens_original) {
+
+    $tokens_prepared = [];
+    for ($i = 0; TRUE; ++$i) {
+      $token = $tokens_original[$i];
+      if (T_COMMENT === $token[0]) {
+        if ("\n" === substr($token[1], -1)) {
+          $tokens_prepared[] = [T_COMMENT, substr($token[1], 0, -1)];
+          if (T_WHITESPACE === $tokens_original[$i + 1][0]) {
+            $tokens_prepared[] = [T_WHITESPACE, "\n" . $tokens_original[$i + 1][1]];
+            ++$i;
+          }
+          else {
+            $tokens_prepared[] = [T_WHITESPACE, "\n"];
+          }
+          continue;
+        }
+      }
+
+      $tokens_prepared[] = $token;
+
+      if ('#' === $token) {
+        break;
+      }
+    }
+
+    return $tokens_prepared;
   }
 
   /**
@@ -88,8 +127,11 @@ final class CodegenUtil extends UtilBase {
             $out[] = $token;
             ++$i;
             self::doAutoIndent($out, $tokens, $i, $indent_deeper, $indent_level);
+            if ('#' === $tokens[$i]) {
+              return;
+            }
             if (T_WHITESPACE === $tokens[$i - 1][0]) {
-              $out[$i -1] = str_replace($indent_deeper, $indent_base, $out[$i - 1]);
+              $out[$i - 1] = str_replace($indent_deeper, $indent_base, $out[$i - 1]);
             }
             break;
 
@@ -120,8 +162,9 @@ final class CodegenUtil extends UtilBase {
             $out[] = str_repeat("\n", $n_linebreaks) . $indent_base;
             break;
 
-          case T_DOC_COMMENT:
           case T_COMMENT:
+          case T_DOC_COMMENT:
+            # $out[] = $token[1];
             $out[] = preg_replace("@ *\\n *\\*@", "\n" . $indent_base . ' *', $token[1]);
             break;
 

@@ -91,7 +91,8 @@ B\'',
 
   public function testAutoIndent() {
 
-    $ugly = '
+    $ugly = <<<'EOT'
+
  class C {
   
  /**
@@ -99,15 +100,22 @@ B\'',
       */
 function foo() {
 
+// Inline comment.
+print 'foo';
+
+      // Another inline comment.
+          print 'bar';
+
 /*
 * Non-doc comment.
 */
-return \'a
-b\';
+return 'a
+b';
 }
 }
-';
-    $clean = '
+EOT;
+    $clean = <<<'EOT'
+
 class C {
 
   /**
@@ -115,14 +123,20 @@ class C {
    */
   function foo() {
 
+    // Inline comment.
+    print 'foo';
+
+    // Another inline comment.
+    print 'bar';
+
     /*
      * Non-doc comment.
      */
-    return \'a
-b\';
+    return 'a
+b';
   }
 }
-';
+EOT;
     static::assertSame($clean, CodegenUtil::autoIndent($ugly, '  '));
   }
 
