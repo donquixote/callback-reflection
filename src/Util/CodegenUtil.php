@@ -15,6 +15,11 @@ final class CodegenUtil extends UtilBase {
       return '';
     }
 
+    $oneline = implode(', ', $argsPhp);
+    if (FALSE === strpos($oneline, "\n") && strlen($oneline) < 30) {
+      return $oneline;
+    }
+
     return "\n" . implode(",\n", $argsPhp);
   }
 
