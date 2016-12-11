@@ -48,6 +48,139 @@ final class CodegenUtil extends UtilBase {
   }
 
   /**
+   * Replaces long class names with aliases.
+   *
+   * @param string $php
+   *   PHP code without the leading <?php.
+   *
+   * @return mixed[]
+   *   Format: $[$class] = $alias|true
+   */
+  public static function aliasify(&$php) {
+    $tokens = token_get_all('<?php' . "\n" . $php . "\n");
+    $tokens[] = '#';
+
+    $map = [];
+    foreach ($tokens as $i => $token) {
+
+      if (T_NEW === $token[0] && T_WHITESPACE === $tokens[$i + 1][0]) {
+
+        $name = '';
+        for ($j = $i + 2; TRUE; ++$j) {
+
+          switch ($tokens[$j][0]) {
+
+            case T_NS_SEPARATOR:
+            case T_STRING:
+              $name .= $tokens[$j][1];
+              break;
+
+            case T_WHITESPACE:
+              break;
+
+            default:
+              break 2;
+          }
+        }
+
+        if ('' !== $name && FALSE === strpos($name . '\\', '\\\\')) {
+          if ('\\' === $name[0]) {
+            $name = substr($name, 1);
+          }
+          $map[$name][] = [$i + 2, $j - 1];
+        }
+      }
+      elseif (T_DOUBLE_COLON === $token[0]) {
+
+        $name = '';
+        for ($j = $i - 1; TRUE; --$j) {
+
+          switch ($tokens[$j][0]) {
+
+            case T_NS_SEPARATOR:
+            case T_STRING:
+              $name = $tokens[$j][1] . $name;
+              break;
+
+            case T_WHITESPACE:
+              break;
+
+            default:
+              break 2;
+          }
+        }
+
+        if ('' !== $name && FALSE === strpos($name . '\\', '\\\\')) {
+          if ('\\' === $name[0]) {
+            $name = substr($name, 1);
+          }
+          $map[$name][] = [$j + 1, $i - 1];
+        }
+      }
+    }
+
+    $mm = [];
+    $abs = [];
+    foreach ($map as $class => $positions) {
+      if (FALSE !== $pos = strrpos($class, '\\')) {
+        $shortname = substr($class, $pos + 1);
+        $mm[$shortname][$class] = $positions;
+      }
+      else {
+        $abs['\\' . $class] = $positions;
+      }
+    }
+
+    $alias_map = [];
+    foreach ($mm as $alias_base => $classes) {
+      $alias = $alias_base;
+      $i_alias_variation = 0;
+      foreach ($classes as $class => $positions) {
+        $alias_map[$class] = (0 === $i_alias_variation) ? TRUE : $alias;
+        foreach ($positions as list($i0, $i1)) {
+          $tokens[$i1] = $alias;
+          for ($i = $i0; $i < $i1; ++$i) {
+            if (T_WHITESPACE !== $tokens[$i][0]) {
+              $tokens[$i] = '';
+            }
+          }
+        }
+        ++$i_alias_variation;
+        $alias = $alias_base . '_' . $i_alias_variation;
+      }
+    }
+
+    ksort($alias_map);
+
+    foreach ($abs as $fqcn => $positions) {
+      foreach ($positions as list($i0, $i1)) {
+        $tokens[$i1] = $fqcn;
+        for ($i = $i0; $i < $i1; ++$i) {
+          if (T_WHITESPACE !== $tokens[$i][0]) {
+            $tokens[$i] = '';
+          }
+        }
+      }
+    }
+
+    array_shift($tokens);
+    array_pop($tokens);
+    array_pop($tokens);
+
+    $php = '';
+    foreach ($tokens as $token) {
+      if (is_string($token)) {
+        $php .= $token;
+      }
+      else {
+        $php .= $token[1];
+      }
+    }
+
+    return $alias_map;
+  }
+
+  /**
    * @param string $php
    * @param string $indent_level
    * @param string $indent_base

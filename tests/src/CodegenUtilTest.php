@@ -89,6 +89,56 @@ B\'',
     static::assertSame('', CodegenUtil::argsPhpGetArglistPhp(array()));
   }
 
+  public function testAliasify() {
+
+    $php = <<<'EOT'
+
+class C {
+  function foo() {
+    new \Animal\Dog;
+    new Animal\Cat();
+    new Food();
+    new Food\Catfood;
+    Food::create();
+    \Food::class;
+    \Food\Catfood::prepare();
+    Food\Dogfood::feedTheDog();
+    Competition\Catfood::otherAlias();
+  }
+}
+EOT;
+
+    $php_expected = <<<'EOT'
+
+class C {
+  function foo() {
+    new Dog;
+    new Cat();
+    new \Food();
+    new Catfood;
+    \Food::create();
+    \Food::class;
+    Catfood::prepare();
+    Dogfood::feedTheDog();
+    Catfood_1::otherAlias();
+  }
+}
+EOT;
+
+    $aliases_expected = [
+      'Animal\Cat' => true,
+      'Animal\Dog' => true,
+      'Competition\Catfood' => 'Catfood_1',
+      'Food\Catfood' => true,
+      'Food\Dogfood' => true,
+    ];
+
+    $aliases = CodegenUtil::aliasify($php);
+
+    self::assertSame($php_expected, $php);
+    self::assertSame($aliases_expected, $aliases);
+  }
+
   public function testAutoIndent() {
 
     $ugly = <<<'EOT'
