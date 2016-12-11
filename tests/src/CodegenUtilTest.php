@@ -67,13 +67,13 @@ EOT
 
     static::assertSame(
       '
-  new \stdClass,
-  5,
-  "x",
-  foo(
-    4,
-    5),
-  \'A
+new \stdClass,
+5,
+"x",
+foo(
+  4,
+  5),
+\'A
 B\'',
       CodegenUtil::argsPhpGetArglistPhp(
         array(

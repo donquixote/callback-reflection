@@ -10,12 +10,12 @@ final class CodegenUtil extends UtilBase {
    * @return string
    */
   public static function argsPhpGetArglistPhp(array $argsPhp) {
+
     if (array() === $argsPhp) {
       return '';
     }
-    else {
-      return "\n  " . self::indent(implode(",\n", $argsPhp), '  ');
-    }
+
+    return "\n" . implode(",\n", $argsPhp);
   }
 
   /**
