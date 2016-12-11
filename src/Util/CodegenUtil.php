@@ -177,4 +177,24 @@ final class CodegenUtil extends UtilBase {
       ++$i;
     }
   }
+
+  /**
+   * @param array $tokens
+   *
+   * @return string
+   */
+  public static function showTokens(array $tokens) {
+
+    $show = [];
+    foreach ($tokens as $i => $token) {
+      if (is_string($token)) {
+        $show[] = var_export($token, TRUE);
+      }
+      else {
+        $show[] = var_export($token[1], TRUE) . ' ==== ' . token_name($token[0]);
+      }
+    }
+
+    return implode("\n", $show);
+  }
 }
