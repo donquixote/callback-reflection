@@ -2,10 +2,10 @@
 
 namespace Donquixote\CallbackReflection\Callback;
 
-use Donquixote\CallbackReflection\ArgsPhpToPhp\ArgsPhpToPhpInterface;
+use Donquixote\CallbackReflection\CodegenHelper\CodegenHelperInterface;
 use Donquixote\CallbackReflection\Util\CodegenUtil;
 
-class CallbackReflection_Function implements CallbackReflectionInterface, ArgsPhpToPhpInterface {
+class CallbackReflection_Function implements CallbackReflectionInterface {
 
   /**
    * @var \ReflectionFunction
@@ -47,11 +47,12 @@ class CallbackReflection_Function implements CallbackReflectionInterface, ArgsPh
   /**
    * @param string[] $argsPhp
    *   PHP statements for each parameter.
+   * @param \Donquixote\CallbackReflection\CodegenHelper\CodegenHelperInterface $helper
    *
    * @return string
    *   PHP statement.
    */
-  public function argsPhpGetPhp(array $argsPhp) {
+  public function argsPhpGetPhp(array $argsPhp, CodegenHelperInterface $helper) {
     $arglistPhp = CodegenUtil::argsPhpGetArglistPhp($argsPhp);
     return '\\' . $this->reflFunction->getName() . '(' . $arglistPhp . ')';
   }

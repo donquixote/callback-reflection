@@ -3,12 +3,15 @@
 namespace Donquixote\CallbackReflection\Tests;
 
 use Donquixote\CallbackReflection\Callback\CallbackReflection_ClassConstruction;
+use Donquixote\CallbackReflection\CodegenHelper\CodegenHelper;
 
 class CallbackReflectionTest extends \PHPUnit_Framework_TestCase {
 
   public function testClassNameCandidate() {
     $reflectionMethod = new \ReflectionMethod(CallbackReflectionTest_C::class, '__construct');
     $callbackReflection = CallbackReflection_ClassConstruction::createFromClassNameCandidate(CallbackReflectionTest_C::class);
+
+    $helper = new CodegenHelper();
 
     static::assertSame(
       $php = <<<'EOT'
@@ -22,7 +25,7 @@ EOT
         array(
           var_export("A\nB", TRUE),
           'new \stdClass',
-        )));
+        ), $helper));
 
     static::assertSame(
       <<<'EOT'
@@ -36,7 +39,7 @@ EOT
       $callbackReflection->argsPhpGetPhp(
         array(
           $php,
-        )));
+        ), $helper));
 
     static::assertEquals(
       $reflectionMethod->getParameters(),

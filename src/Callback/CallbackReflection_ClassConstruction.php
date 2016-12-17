@@ -2,13 +2,13 @@
 
 namespace Donquixote\CallbackReflection\Callback;
 
-use Donquixote\CallbackReflection\ArgsPhpToPhp\ArgsPhpToPhpInterface;
+use Donquixote\CallbackReflection\CodegenHelper\CodegenHelperInterface;
 use Donquixote\CallbackReflection\Util\CodegenUtil;
 
 /**
  * Wraps a class constructor as a factory callback.
  */
-class CallbackReflection_ClassConstruction implements CallbackReflectionInterface, ArgsPhpToPhpInterface {
+class CallbackReflection_ClassConstruction implements CallbackReflectionInterface {
 
   /**
    * @var \ReflectionClass
@@ -74,11 +74,12 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
   /**
    * @param string[] $argsPhp
    *   PHP statements for each parameter.
+   * @param \Donquixote\CallbackReflection\CodegenHelper\CodegenHelperInterface $helper
    *
    * @return string
    *   PHP statement.
    */
-  public function argsPhpGetPhp(array $argsPhp) {
+  public function argsPhpGetPhp(array $argsPhp, CodegenHelperInterface $helper) {
     $arglistPhp = CodegenUtil::argsPhpGetArglistPhp($argsPhp);
     return 'new \\' . $this->reflClass->getName() . '(' . $arglistPhp . ')';
   }
