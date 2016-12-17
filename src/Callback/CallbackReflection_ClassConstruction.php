@@ -16,7 +16,7 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
   private $reflClass;
 
   /**
-   * @param $class
+   * @param string $class
    *
    * @return null|static
    */
@@ -24,6 +24,15 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
     return class_exists($class)
       ? new static(new \ReflectionClass($class))
       : NULL;
+  }
+
+  /**
+   * @param string $class
+   *
+   * @return static
+   */
+  public static function create($class) {
+    return new static(new \ReflectionClass($class));
   }
 
   /**

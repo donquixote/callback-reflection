@@ -13,6 +13,15 @@ class CallbackReflection_Function implements CallbackReflectionInterface, ArgsPh
   private $reflFunction;
 
   /**
+   * @param string $function
+   *
+   * @return \Donquixote\CallbackReflection\Callback\CallbackReflection_Function
+   */
+  public static function create($function) {
+    return new self(new \ReflectionFunction($function));
+  }
+
+  /**
    * @param \ReflectionFunction $reflFunction
    */
   function __construct(\ReflectionFunction $reflFunction) {
