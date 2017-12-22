@@ -13,7 +13,7 @@ interface CallbackReflectionInterface {
    *
    * @see \ReflectionFunctionAbstract::getParameters()
    */
-  function getReflectionParameters();
+  public function getReflectionParameters();
 
   /**
    * @param mixed[] $args
@@ -22,7 +22,7 @@ interface CallbackReflectionInterface {
    *
    * @throws \Exception
    */
-  function invokeArgs(array $args);
+  public function invokeArgs(array $args);
 
   /**
    * @param string[] $argsPhp
