@@ -64,6 +64,10 @@ final class CodegenUtil extends UtilBase {
     $tokens = token_get_all('<?php' . "\n" . $php . "\n");
     $tokens[] = '#';
 
+    /**
+     * @var int[][][] $map
+     *   Format: $[$name][] = [$i0, $i1]
+     */
     $map = [];
     foreach ($tokens as $i => $token) {
 
@@ -89,6 +93,7 @@ final class CodegenUtil extends UtilBase {
 
         if ('' !== $name && FALSE === strpos($name . '\\', '\\\\')) {
           if ('\\' === $name[0]) {
+            /** @var string $name Never false. */
             $name = substr($name, 1);
           }
           $map[$name][] = [$i + 2, $j - 1];
@@ -116,6 +121,7 @@ final class CodegenUtil extends UtilBase {
 
         if ('' !== $name && FALSE === strpos($name . '\\', '\\\\')) {
           if ('\\' === $name[0]) {
+            /** @var string $name Never false. */
             $name = substr($name, 1);
           }
           $map[$name][] = [$j + 1, $i - 1];
@@ -123,10 +129,17 @@ final class CodegenUtil extends UtilBase {
       }
     }
 
+    /**
+     * @var int[][][][] $mm
+     *   Format: $[$shortname][$class][] = [$i0, $i1]
+     * @var int[][] $abs
+     *   Format: $['\\' . $class][] = [$0, $i1]
+     */
     $mm = [];
     $abs = [];
     foreach ($map as $class => $positions) {
       if (FALSE !== $pos = strrpos($class, '\\')) {
+        /** @var string $shortname Never false. */
         $shortname = substr($class, $pos + 1);
         $mm[$shortname][$class] = $positions;
       }
@@ -141,6 +154,7 @@ final class CodegenUtil extends UtilBase {
       $i_alias_variation = 0;
       foreach ($classes as $class => $positions) {
         $alias_map[$class] = (0 === $i_alias_variation) ? TRUE : $alias;
+        /** @var int $i1 */
         foreach ($positions as list($i0, $i1)) {
           $tokens[$i1] = $alias;
           for ($i = $i0; $i < $i1; ++$i) {
