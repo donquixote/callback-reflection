@@ -51,6 +51,7 @@ class CallbackReflectionTest extends \PHPUnit_Framework_TestCase {
       static::assertEmpty($expectedProblems);
     }
     catch(\Exception $e) {
+      unset($e);
       static::assertNotEmpty($expectedProblems);
     }
   }
