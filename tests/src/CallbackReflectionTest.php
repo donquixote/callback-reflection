@@ -31,6 +31,8 @@ class CallbackReflectionTest extends \PHPUnit_Framework_TestCase {
    * @param string[] $expectedProblems
    *
    * @dataProvider providerTestCallbackReflection()
+   *
+   * @throws \Exception
    */
   public function testCallbackReflection(
     CallbackReflectionInterface $callbackReflection,

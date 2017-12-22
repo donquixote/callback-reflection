@@ -57,6 +57,7 @@ class CallbackReflection_BoundParameters implements CallbackReflectionInterface 
    * @param mixed[] $args
    *
    * @return mixed
+   * @throws \Exception
    */
   public function invokeArgs(array $args) {
     $args = array_values($args);
