@@ -57,7 +57,7 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
   public function getReflectionParameters() {
     $reflConstructor = $this->reflClass->getConstructor();
     if (NULL === $reflConstructor) {
-      return array();
+      return [];
     }
     return $reflConstructor->getParameters();
   }

@@ -76,17 +76,17 @@ foo(
 \'A
 B\'',
       CodegenUtil::argsPhpGetArglistPhp(
-        array(
+        [
           'new \stdClass',
           '5',
           '"x"',
           "foo(\n  4,\n  5)",
           var_export("A\nB", TRUE),
-        )
+        ]
       )
     );
 
-    static::assertSame('', CodegenUtil::argsPhpGetArglistPhp(array()));
+    static::assertSame('', CodegenUtil::argsPhpGetArglistPhp([]));
   }
 
   public function testAliasify() {

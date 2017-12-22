@@ -15,7 +15,7 @@ final class CodegenUtil extends UtilBase {
    */
   public static function argsPhpGetArglistPhp(array $argsPhp) {
 
-    if (array() === $argsPhp) {
+    if ([] === $argsPhp) {
       return '';
     }
 

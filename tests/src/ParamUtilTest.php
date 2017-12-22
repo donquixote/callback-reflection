@@ -12,42 +12,42 @@ class ParamUtilTest extends \PHPUnit_Framework_TestCase {
     static::assertTrue(
       ParamUtil::paramsValidateArgs(
         $params,
-        array(
+        [
           new \stdClass,
           new ParamUtilTest_D(),
-        )));
+        ]));
 
     static::assertFalse(
       ParamUtil::paramsValidateArgs(
         $params,
-        array(
+        [
           new \stdClass,
           new ParamUtilTest_D(),
           5,
-        )));
+        ]));
 
     static::assertFalse(
       ParamUtil::paramsValidateArgs(
         $params,
-        array(
+        [
           new ParamUtilTest_D(),
           new \stdClass,
-        )));
+        ]));
 
     static::assertFalse(
       ParamUtil::paramsValidateArgs(
         $params,
-        array(
+        [
           new \stdClass,
-        )));
+        ]));
 
     static::assertFalse(
       ParamUtil::paramsValidateArgs(
         $params,
-        array(
+        [
           'x',
           'y',
-        )));
+        ]));
   }
 
 }

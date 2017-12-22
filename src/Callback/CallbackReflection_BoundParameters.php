@@ -44,7 +44,7 @@ class CallbackReflection_BoundParameters implements CallbackReflectionInterface 
    * @return \ReflectionParameter[]
    */
   public function getReflectionParameters() {
-    $params = array();
+    $params = [];
     foreach ($this->decorated->getReflectionParameters() as $i => $param) {
       if (!array_key_exists($i, $this->boundArgs) && !array_key_exists($param->getName(), $this->boundArgs)) {
         $params[] = $param;
@@ -61,7 +61,7 @@ class CallbackReflection_BoundParameters implements CallbackReflectionInterface 
   public function invokeArgs(array $args) {
     $args = array_values($args);
     $j = 0;
-    $combinedArgs = array();
+    $combinedArgs = [];
     foreach ($this->decorated->getReflectionParameters() as $i => $param) {
       if (array_key_exists($i, $this->boundArgs)) {
         $arg = $this->boundArgs[$i];
