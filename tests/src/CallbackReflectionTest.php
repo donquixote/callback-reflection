@@ -163,6 +163,11 @@ class CallbackReflectionTest_C {
     $this->y = $y;
   }
 
+  /**
+   * @param string $z
+   *
+   * @return string[]
+   */
   public function foo($z) {
     return [$this->x . $z, $this->y . $z];
   }

@@ -56,6 +56,10 @@ class ParamUtilTest extends \PHPUnit_Framework_TestCase {
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class ParamUtilTest_C {
 
+  /**
+   * @param \stdClass $c
+   * @param \Donquixote\CallbackReflection\Tests\ParamUtilTest_I $i
+   */
   public static function foo(\stdClass $c, ParamUtilTest_I $i) {
     // Nothing.
   }
