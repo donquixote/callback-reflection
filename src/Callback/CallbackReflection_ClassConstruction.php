@@ -20,7 +20,7 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
    *
    * @return null|static
    */
-  static function createFromClassNameCandidate($class) {
+  public static function createFromClassNameCandidate($class) {
     return class_exists($class)
       ? new static(new \ReflectionClass($class))
       : NULL;
@@ -40,21 +40,21 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
    *
    * @return static
    */
-  static function createFromClassName($class) {
+  public static function createFromClassName($class) {
     return new static(new \ReflectionClass($class));
   }
 
   /**
    * @param \ReflectionClass $reflClass
    */
-  function __construct(\ReflectionClass $reflClass) {
+  public function __construct(\ReflectionClass $reflClass) {
     $this->reflClass = $reflClass;
   }
 
   /**
    * @return \ReflectionParameter[]
    */
-  function getReflectionParameters() {
+  public function getReflectionParameters() {
     $reflConstructor = $this->reflClass->getConstructor();
     if (NULL === $reflConstructor) {
       return array();
@@ -67,7 +67,7 @@ class CallbackReflection_ClassConstruction implements CallbackReflectionInterfac
    *
    * @return object
    */
-  function invokeArgs(array $args) {
+  public function invokeArgs(array $args) {
     return $this->reflClass->newInstanceArgs($args);
   }
 

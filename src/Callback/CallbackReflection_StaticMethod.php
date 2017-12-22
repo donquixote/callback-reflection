@@ -18,7 +18,7 @@ class CallbackReflection_StaticMethod implements CallbackReflectionInterface {
    *
    * @return \Donquixote\CallbackReflection\Callback\CallbackReflection_StaticMethod
    */
-  static function create($className, $methodName) {
+  public static function create($className, $methodName) {
     $reflectionMethod = new \ReflectionMethod($className, $methodName);
     return new self($reflectionMethod);
   }
@@ -26,14 +26,14 @@ class CallbackReflection_StaticMethod implements CallbackReflectionInterface {
   /**
    * @param \ReflectionMethod $reflMethod
    */
-  function __construct(\ReflectionMethod $reflMethod) {
+  public function __construct(\ReflectionMethod $reflMethod) {
     $this->reflMethod = $reflMethod;
   }
 
   /**
    * @return \ReflectionParameter[]
    */
-  function getReflectionParameters() {
+  public function getReflectionParameters() {
     return $this->reflMethod->getParameters();
   }
 
@@ -42,7 +42,7 @@ class CallbackReflection_StaticMethod implements CallbackReflectionInterface {
    *
    * @return mixed|null
    */
-  function invokeArgs(array $args) {
+  public function invokeArgs(array $args) {
     return $this->reflMethod->invokeArgs(NULL, $args);
   }
 

@@ -24,14 +24,14 @@ class CallbackReflection_Function implements CallbackReflectionInterface {
   /**
    * @param \ReflectionFunction $reflFunction
    */
-  function __construct(\ReflectionFunction $reflFunction) {
+  public function __construct(\ReflectionFunction $reflFunction) {
     $this->reflFunction = $reflFunction;
   }
 
   /**
    * @return \ReflectionParameter[]
    */
-  function getReflectionParameters() {
+  public function getReflectionParameters() {
     return $this->reflFunction->getParameters();
   }
 
@@ -40,7 +40,7 @@ class CallbackReflection_Function implements CallbackReflectionInterface {
    *
    * @return mixed|null
    */
-  function invokeArgs(array $args) {
+  public function invokeArgs(array $args) {
     return $this->reflFunction->invokeArgs($args);
   }
 

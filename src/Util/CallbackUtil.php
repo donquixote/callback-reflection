@@ -14,7 +14,7 @@ final class CallbackUtil extends UtilBase {
    *
    * @return null|\Donquixote\CallbackReflection\Callback\CallbackReflectionInterface
    */
-  static function callableGetCallback($callable) {
+  public static function callableGetCallback($callable) {
 
     if (!is_callable($callable)) {
       return NULL;

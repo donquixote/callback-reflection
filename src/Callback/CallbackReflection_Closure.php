@@ -15,7 +15,7 @@ class CallbackReflection_Closure implements CallbackReflectionInterface {
   /**
    * @param \Closure $closure
    */
-  function __construct(\Closure $closure) {
+  public function __construct(\Closure $closure) {
     $this->closure = $closure;
   }
 
@@ -26,7 +26,7 @@ class CallbackReflection_Closure implements CallbackReflectionInterface {
    *
    * @see \ReflectionFunctionAbstract::getParameters()
    */
-  function getReflectionParameters() {
+  public function getReflectionParameters() {
     $reflFunction = new \ReflectionFunction($this->closure);
     return $reflFunction->getParameters();
   }
@@ -36,7 +36,7 @@ class CallbackReflection_Closure implements CallbackReflectionInterface {
    *
    * @return mixed|null
    */
-  function invokeArgs(array $args) {
+  public function invokeArgs(array $args) {
     return call_user_func_array($this->closure, $args);
   }
 

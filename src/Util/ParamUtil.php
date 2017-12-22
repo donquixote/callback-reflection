@@ -10,7 +10,7 @@ final class ParamUtil extends UtilBase {
    *
    * @return bool
    */
-  static function paramsValidateArgs(array $params, array $args) {
+  public static function paramsValidateArgs(array $params, array $args) {
 
     // Check that $args is a regular numerically indexed array.
     if ($args !== array_values($args)) {
@@ -46,7 +46,7 @@ final class ParamUtil extends UtilBase {
    *
    * @return bool
    */
-  static function paramValidateArg(\ReflectionParameter $param, $arg) {
+  public static function paramValidateArg(\ReflectionParameter $param, $arg) {
     if (NULL !== $expectedClassLike = $param->getClass()) {
       $expectedClassLikeName = $expectedClassLike->getName();
       if ($arg instanceof $expectedClassLikeName) {

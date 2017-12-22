@@ -31,7 +31,7 @@ class CallbackReflection_ObjectMethod implements CallbackReflectionInterface {
    *
    * @return \Donquixote\CallbackReflection\Callback\CallbackReflection_ObjectMethod
    */
-  static function create($object, $methodName, $objectPhp = NULL) {
+  public static function create($object, $methodName, $objectPhp = NULL) {
     if (!is_object($object)) {
       throw new \InvalidArgumentException("First parameter must be an object.");
     }
@@ -52,7 +52,7 @@ class CallbackReflection_ObjectMethod implements CallbackReflectionInterface {
    *
    * @throws \InvalidArgumentException
    */
-  function __construct($object, \ReflectionMethod $reflMethod, $objectPhp = NULL) {
+  public function __construct($object, \ReflectionMethod $reflMethod, $objectPhp = NULL) {
     if (!$object instanceof $reflMethod->class) {
       if (!is_object($object)) {
         throw new \InvalidArgumentException("First parameter must be an object.");
@@ -67,7 +67,7 @@ class CallbackReflection_ObjectMethod implements CallbackReflectionInterface {
   /**
    * @return \ReflectionParameter[]
    */
-  function getReflectionParameters() {
+  public function getReflectionParameters() {
     return $this->reflMethod->getParameters();
   }
 
@@ -76,7 +76,7 @@ class CallbackReflection_ObjectMethod implements CallbackReflectionInterface {
    *
    * @return object|null
    */
-  function invokeArgs(array $args) {
+  public function invokeArgs(array $args) {
     return $this->reflMethod->invokeArgs($this->object, $args);
   }
 

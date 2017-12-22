@@ -34,7 +34,7 @@ class CallbackReflection_BoundParameters implements CallbackReflectionInterface 
    *   If $args contains some keys that are not present in $argsPhp, then a
    *   simple var_export() will be attempted.
    */
-  function __construct(CallbackReflectionInterface $decorated, array $boundArgs, array $boundArgsPhp = []) {
+  public function __construct(CallbackReflectionInterface $decorated, array $boundArgs, array $boundArgsPhp = []) {
     $this->decorated = $decorated;
     $this->boundArgs = $boundArgs;
     $this->boundArgsPhp = $boundArgsPhp;
@@ -43,7 +43,7 @@ class CallbackReflection_BoundParameters implements CallbackReflectionInterface 
   /**
    * @return \ReflectionParameter[]
    */
-  function getReflectionParameters() {
+  public function getReflectionParameters() {
     $params = array();
     foreach ($this->decorated->getReflectionParameters() as $i => $param) {
       if (!array_key_exists($i, $this->boundArgs) && !array_key_exists($param->getName(), $this->boundArgs)) {
@@ -58,7 +58,7 @@ class CallbackReflection_BoundParameters implements CallbackReflectionInterface 
    *
    * @return mixed
    */
-  function invokeArgs(array $args) {
+  public function invokeArgs(array $args) {
     $args = array_values($args);
     $j = 0;
     $combinedArgs = array();

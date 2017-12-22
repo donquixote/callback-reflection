@@ -148,7 +148,7 @@ class CallbackReflectionTest_C {
    *
    * @return string
    */
-  static function fooStatic($z) {
+  public static function fooStatic($z) {
     return strtoupper($z) . strtolower($z);
   }
 
@@ -156,12 +156,12 @@ class CallbackReflectionTest_C {
    * @param mixed $x
    * @param mixed $y
    */
-  function __construct($x, $y) {
+  public function __construct($x, $y) {
     $this->x = $x;
     $this->y = $y;
   }
 
-  function foo($z) {
+  public function foo($z) {
     return [$this->x . $z, $this->y . $z];
   }
 
