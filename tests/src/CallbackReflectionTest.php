@@ -16,7 +16,7 @@ class CallbackReflectionTest extends \PHPUnit_Framework_TestCase {
 
   public function testGetParameters() {
     $reflectionMethod = new \ReflectionMethod($c = CallbackReflectionTest_C::class, '__construct');
-    $callbackReflection = CallbackReflection_ClassConstruction::createFromClassNameCandidate($c);
+    $callbackReflection = CallbackReflection_ClassConstruction::create($c);
     static::assertEquals(
       $reflectionMethod->getParameters(),
       $callbackReflection->getReflectionParameters());
