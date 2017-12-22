@@ -4,6 +4,7 @@ namespace Donquixote\CallbackReflection\Tests;
 
 use Donquixote\CallbackReflection\Util\ParamUtil;
 
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class ParamUtilTest extends \PHPUnit_Framework_TestCase {
 
   public function testParamsValidateArgs() {
@@ -52,6 +53,7 @@ class ParamUtilTest extends \PHPUnit_Framework_TestCase {
 
 }
 
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class ParamUtilTest_C {
 
   public static function foo(\stdClass $c, ParamUtilTest_I $i) {
@@ -59,10 +61,12 @@ class ParamUtilTest_C {
   }
 }
 
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class ParamUtilTest_D implements ParamUtilTest_I {
 
 }
 
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 interface ParamUtilTest_I {
 
 }

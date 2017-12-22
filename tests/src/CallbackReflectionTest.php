@@ -11,6 +11,7 @@ use Donquixote\CallbackReflection\Callback\CallbackReflection_StaticMethod;
 use Donquixote\CallbackReflection\Callback\CallbackReflectionInterface;
 use Donquixote\CallbackReflection\CodegenHelper\CodegenHelper;
 
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class CallbackReflectionTest extends \PHPUnit_Framework_TestCase {
 
   public function testGetParameters() {
@@ -131,6 +132,7 @@ EOT
 
 }
 
+/** @noinspection PhpMultipleClassesDeclarationsInOneFile */
 class CallbackReflectionTest_C {
 
   /**
