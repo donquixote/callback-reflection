@@ -13,11 +13,11 @@ abstract class CodegenHelperBase implements CodegenHelperInterface {
    */
   public function export($value) {
 
-    if (is_object($value)) {
+    if (\is_object($value)) {
       return $this->exportObject($value);
     }
 
-    if (is_array($value)) {
+    if (\is_array($value)) {
       return $this->exportArray($value);
     }
 
@@ -48,7 +48,7 @@ abstract class CodegenHelperBase implements CodegenHelperInterface {
     }
 
     $php_oneline = implode(', ', $pieces);
-    if (FALSE === strpos($php_oneline, "\n") && strlen($php_oneline) < 30) {
+    if (FALSE === strpos($php_oneline, "\n") && \strlen($php_oneline) < 30) {
       return '[' . $php_oneline . ']';
     }
 
@@ -69,7 +69,7 @@ abstract class CodegenHelperBase implements CodegenHelperInterface {
     $this->addProblem('Exporting objects is not supported.');
 
     /* @see \Donquixote\CallbackReflection\Util\CodegenFailureUtil::failToCreateObject() */
-    return '\\' . CodegenFailureUtil::class . "::failToCreateObject(\\" . get_class($object) . '::class)';
+    return '\\' . CodegenFailureUtil::class . "::failToCreateObject(\\" . \get_class($object) . '::class)';
   }
 
   /**

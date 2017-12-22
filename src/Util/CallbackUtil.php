@@ -16,13 +16,13 @@ final class CallbackUtil extends UtilBase {
    */
   public static function callableGetCallback($callable) {
 
-    if (!is_callable($callable)) {
+    if (!\is_callable($callable)) {
       return NULL;
     }
 
-    if (is_string($callable)) {
+    if (\is_string($callable)) {
       if (FALSE === strpos($callable, '::')) {
-        if (!function_exists($callable)) {
+        if (!\function_exists($callable)) {
           return NULL;
         }
         $reflFunction = new \ReflectionFunction($callable);
@@ -30,7 +30,7 @@ final class CallbackUtil extends UtilBase {
       }
       list($classOrObject, $methodName) = explode('::', $callable);
     }
-    elseif (is_object($callable)) {
+    elseif (\is_object($callable)) {
       if ($callable instanceof \Closure) {
         return new CallbackReflection_Closure($callable);
       }
@@ -40,7 +40,7 @@ final class CallbackUtil extends UtilBase {
       $classOrObject = $callable;
       $methodName = '__invoke';
     }
-    elseif (!is_array($callable)) {
+    elseif (!\is_array($callable)) {
       return NULL;
     }
     elseif (!isset($callable[0], $callable[1])) {
@@ -56,7 +56,7 @@ final class CallbackUtil extends UtilBase {
 
     $reflMethod = new \ReflectionMethod($classOrObject, $methodName);
 
-    if (is_object($classOrObject)) {
+    if (\is_object($classOrObject)) {
       /** @var object $classOrObject */
       return new CallbackReflection_ObjectMethod($classOrObject, $reflMethod);
     }

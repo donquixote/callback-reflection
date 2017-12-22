@@ -87,7 +87,7 @@ EOT
     ];
 
     $argss['closure'] = [
-      new CallbackReflection_Closure(include dirname(__DIR__) . '/fixtures/closure.php'),
+      new CallbackReflection_Closure(include \dirname(__DIR__) . '/fixtures/closure.php'),
       ['A', 'B'], 'ok',
       ["'A'", "'B'"], <<<'EOT'
 call_user_func_array(

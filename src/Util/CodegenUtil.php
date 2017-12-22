@@ -19,12 +19,12 @@ final class CodegenUtil extends UtilBase {
       return '';
     }
 
-    $oneline = implode(', ', $argsPhp);
-    if (FALSE === strpos($oneline, "\n") && strlen($oneline) < 30) {
+    $oneline = \implode(', ', $argsPhp);
+    if (FALSE === \strpos($oneline, "\n") && \strlen($oneline) < 30) {
       return $oneline;
     }
 
-    return "\n" . implode(",\n", $argsPhp);
+    return "\n" . \implode(",\n", $argsPhp);
   }
 
   /**
@@ -38,7 +38,7 @@ final class CodegenUtil extends UtilBase {
     array_shift($tokens);
     $out = '';
     foreach ($tokens as $token) {
-      if (is_string($token)) {
+      if (\is_string($token)) {
         $out .= $token;
       }
       elseif ($token[0] !== T_WHITESPACE && $token[0] !== T_DOC_COMMENT && $token[0] !== T_COMMENT) {
@@ -173,7 +173,7 @@ final class CodegenUtil extends UtilBase {
 
     $php = '';
     foreach ($tokens as $token) {
-      if (is_string($token)) {
+      if (\is_string($token)) {
         $php .= $token;
       }
       else {
@@ -254,7 +254,7 @@ final class CodegenUtil extends UtilBase {
     while (TRUE) {
       $token = $tokens[$i];
 
-      if (is_string($token)) {
+      if (\is_string($token)) {
 
         switch ($token) {
 
@@ -328,7 +328,7 @@ final class CodegenUtil extends UtilBase {
 
     $show = [];
     foreach ($tokens as $i => $token) {
-      if (is_string($token)) {
+      if (\is_string($token)) {
         $show[] = var_export($token, TRUE);
       }
       else {

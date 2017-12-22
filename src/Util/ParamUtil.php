@@ -17,8 +17,8 @@ final class ParamUtil extends UtilBase {
       return FALSE;
     }
 
-    $nArgs = count($args);
-    $nParams = count($params);
+    $nArgs = \count($args);
+    $nParams = \count($params);
 
     // Check that not too many arguments are given.
     if ($nArgs > $nParams) {
@@ -54,7 +54,7 @@ final class ParamUtil extends UtilBase {
       }
     }
     elseif ($param->isArray()) {
-      if (is_array($arg)) {
+      if (\is_array($arg)) {
         return TRUE;
       }
     }

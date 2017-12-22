@@ -199,7 +199,7 @@ EOT;
    */
   public static function assertSame($expected, $actual, $message = '') {
 
-    if (!is_string($expected) || !is_string($actual)) {
+    if (!\is_string($expected) || !\is_string($actual)) {
       parent::assertSame($expected, $actual, $message);
     }
 
