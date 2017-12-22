@@ -302,7 +302,11 @@ final class CodegenUtil extends UtilBase {
           case T_COMMENT:
           case T_DOC_COMMENT:
             # $out[] = $token[1];
-            $out[] = preg_replace("@ *\\n *\\*@", "\n" . $indent_base . ' *', $token[1]);
+            $out[] = preg_replace(
+              /** @lang RegExp */
+              "@ *\\n *\\*@",
+              "\n" . $indent_base . ' *',
+              $token[1]);
             break;
 
           default:
