@@ -19,6 +19,8 @@ interface CallbackReflectionInterface {
    * @param mixed[] $args
    *
    * @return mixed|void
+   *
+   * @throws \Exception
    */
   function invokeArgs(array $args);
 
