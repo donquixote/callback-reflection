@@ -3,9 +3,10 @@
 namespace Donquixote\CallbackReflection\Tests;
 
 use Donquixote\CallbackReflection\Util\ParamUtil;
+use PHPUnit\Framework\TestCase;
 
 /** @noinspection PhpMultipleClassesDeclarationsInOneFile */
-class ParamUtilTest extends \PHPUnit_Framework_TestCase {
+class ParamUtilTest extends TestCase {
 
   public function testParamsValidateArgs() {
     $params = (new \ReflectionMethod(ParamUtilTest_C::class, 'foo'))->getParameters();

@@ -3,8 +3,9 @@
 namespace Donquixote\CallbackReflection\Tests;
 
 use Donquixote\CallbackReflection\Util\CodegenUtil;
+use PHPUnit\Framework\TestCase;
 
-class CodegenUtilTest extends \PHPUnit_Framework_TestCase {
+class CodegenUtilTest extends TestCase {
 
   public function testIndent() {
 

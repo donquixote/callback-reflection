@@ -2,7 +2,9 @@
 
 namespace Donquixote\CallbackReflection\Tests;
 
-class CallbackUtilTest extends \PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CallbackUtilTest extends TestCase {
 
   public function testCallableGetCallback() {
 
